@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog API Test Interface</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      .section {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+      }
+      .section h3 {
+        color: #007bff;
+        margin-bottom: 15px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      textarea {
+        height: 100px;
+        resize: vertical;
+      }
+      .content-textarea {
+        height: 200px;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .btn-danger {
+        background-color: #dc3545;
+      }
+      .btn-danger:hover {
+        background-color: #c82333;
+      }
+      .btn-success {
+        background-color: #28a745;
+      }
+      .btn-success:hover {
+        background-color: #218838;
+      }
+      .response {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        border-left: 4px solid #007bff;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+      .error {
+        border-left-color: #dc3545;
+        background-color: #f8d7da;
+      }
+      .success {
+        border-left-color: #28a745;
+        background-color: #d4edda;
+      }
+      .blog-card {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background: #f9f9f9;
+      }
+      .blog-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+      }
+      .blog-meta {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 10px;
+      }
+      .blog-actions {
+        margin-top: 10px;
+      }
+      .blog-actions button {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+      .two-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .status-published {
+        color: #28a745;
+      }
+      .status-draft {
+        color: #ffc107;
+      }
+      .status-archived {
+        color: #6c757d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>📝 Blog API Test Interface</h1>
+
+      <!-- Auth Section -->
+      <div class="section">
+        <h3>🔐 Authentication</h3>
+        <div class="two-column">
+          <div>
+            <h4>Login</h4>
+            <div class="form-group">
+              <label for="loginEmail">Email:</label>
+              <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter email"
+                value="test@example.com"
+              />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password:</label>
+              <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter password"
+                value="Password123"
+              />
+            </div>
+            <button onclick="login()">Login</button>
+          </div>
+          <div>
+            <h4>Quick Actions</h4>
+            <button onclick="getProfile()">Get Profile</button>
+            <button onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create Blog Section -->
+      <div class="section">
+        <h3>✍️ Create Blog</h3>
+        <div class="form-group">
+          <label for="createTitle">Title:</label>
+          <input
+            type="text"
+            id="createTitle"
+            placeholder="Enter blog title"
+            value="My Test Blog Post"
+          />
+        </div>
+        <div class="form-group">
+          <label for="createSummary">Summary:</label>
+          <textarea id="createSummary" placeholder="Enter blog summary">
+This is a test blog post created using the API test interface.</textarea
+          >
+        </div>
+        <div class="form-group">
+          <label for="createContent">Content:</label>
+          <textarea
+            id="createContent"
+            class="content-textarea"
+            placeholder="Enter blog content"
+          >
+This is the full content of my test blog post. It contains detailed information about the topic and demonstrates the blog creation functionality of our API.</textarea
+          >
+        </div>
+        <div class="two-column">
+          <div class="form-group">
+            <label for="createTags">Tags (comma-separated):</label>
+            <input
+              type="text"
+              id="createTags"
+              placeholder="javascript, nodejs, api"
+              value="test, api, nodejs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="createCategory">Category:</label>
+            <input
+              type="text"
+              id="createCategory"
+              placeholder="technology"
+              value="technology"
+            />
+          </div>
+        </div>
+        <div class="two-column">
+          <div class="form-group">
+            <label for="createStatus">Status:</label>
+            <select id="createStatus">
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="createIsPublic">Visibility:</label>
+            <select id="createIsPublic">
+              <option value="true">Public</option>
+              <option value="false">Private</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="createFeaturedImage">Featured Image URL:</label>
+          <input
+            type="url"
+            id="createFeaturedImage"
+            placeholder="https://example.com/image.jpg"
+          />
+        </div>
+        <button onclick="createBlog()">Create Blog</button>
+      </div>
+
+      <!-- View Blogs Section -->
+      <div class="section">
+        <h3>📖 View Blogs</h3>
+        <div class="two-column">
+          <div>
+            <h4>Filters</h4>
+            <div class="form-group">
+              <label for="searchQuery">Search:</label>
+              <input
+                type="text"
+                id="searchQuery"
+                placeholder="Search blogs..."
+              />
+            </div>
+            <div class="form-group">
+              <label for="categoryFilter">Category:</label>
+              <input type="text" id="categoryFilter" placeholder="technology" />
+            </div>
+            <div class="form-group">
+              <label for="statusFilter">Status:</label>
+              <select id="statusFilter">
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+                <option value="archived">Archived</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <h4>Pagination & Sorting</h4>
+            <div class="form-group">
+              <label for="pageNumber">Page:</label>
+              <input type="number" id="pageNumber" min="1" value="1" />
+            </div>
+            <div class="form-group">
+              <label for="pageLimit">Limit:</label>
+              <input type="number" id="pageLimit" min="1" max="50" value="10" />
+            </div>
+            <div class="form-group">
+              <label for="sortBy">Sort By:</label>
+              <select id="sortBy">
+                <option value="createdAt">Date Created</option>
+                <option value="views">Views</option>
+                <option value="title">Title</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button onclick="getAllBlogs()">Get All Blogs</button>
+        <button onclick="getMyBlogs()">Get My Blogs</button>
+      </div>
+
+      <!-- Single Blog Operations -->
+      <div class="section">
+        <h3>🔍 Single Blog Operations</h3>
+        <div class="form-group">
+          <label for="blogId">Blog ID:</label>
+          <input type="text" id="blogId" placeholder="Enter blog ID" />
+        </div>
+        <div class="form-group">
+          <label for="blogSlug">Blog Slug:</label>
+          <input type="text" id="blogSlug" placeholder="Enter blog slug" />
+        </div>
+        <button onclick="getBlogById()">Get Blog by ID</button>
+        <button onclick="getBlogBySlug()">Get Blog by Slug</button>
+        <button onclick="likeBlog()" class="btn-success">Like Blog</button>
+        <button onclick="deleteBlog()" class="btn-danger">Delete Blog</button>
+      </div>
+
+      <!-- Update Blog Section -->
+      <div class="section">
+        <h3>✏️ Update Blog</h3>
+        <div class="form-group">
+          <label for="updateBlogId">Blog ID to Update:</label>
+          <input type="text" id="updateBlogId" placeholder="Enter blog ID" />
+        </div>
+        <div class="form-group">
+          <label for="updateTitle">Title:</label>
+          <input type="text" id="updateTitle" placeholder="Updated title" />
+        </div>
+        <div class="form-group">
+          <label for="updateSummary">Summary:</label>
+          <textarea id="updateSummary" placeholder="Updated summary"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="updateContent">Content:</label>
+          <textarea
+            id="updateContent"
+            class="content-textarea"
+            placeholder="Updated content"
+          ></textarea>
+        </div>
+        <button onclick="updateBlog()">Update Blog</button>
+        <button onclick="loadBlogForEdit()">Load Blog for Edit</button>
+      </div>
+
+      <!-- Response Section -->
+      <div class="section">
+        <h3>📋 Response</h3>
+        <div id="response" class="response" style="display: none"></div>
+      </div>
+
+      <!-- Blog List Section -->
+      <div class="section">
+        <h3>📚 Blog List</h3>
+        <div id="blogList"></div>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE = "http://localhost:5000/api";
+
+      function showResponse(data, isError = false) {
+        const responseDiv = document.getElementById("response");
+        responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        responseDiv.className = isError ? "response error" : "response success";
+        responseDiv.style.display = "block";
+      }
+
+      function showBlogList(blogs, pagination = null) {
+        const blogListDiv = document.getElementById("blogList");
+
+        if (!blogs || blogs.length === 0) {
+          blogListDiv.innerHTML = "<p>No blogs found.</p>";
+          return;
+        }
+
+        let html = "";
+
+        if (pagination) {
+          html += `<div class="blog-meta">Page ${pagination.page} of ${pagination.pages} (${pagination.total} total)</div>`;
+        }
+
+        blogs.forEach((blog) => {
+          html += `
+                    <div class="blog-card">
+                        <div class="blog-title">${blog.title}</div>
+                        <div class="blog-meta">
+                            By: ${blog.author.username} | 
+                            Status: <span class="status-${blog.status}">${
+            blog.status
+          }</span> | 
+                            Views: ${blog.views} | 
+                            Likes: ${
+                              blog.likeCount || blog.likes?.length || 0
+                            } | 
+                            Read Time: ${blog.readTime} min | 
+                            Created: ${new Date(
+                              blog.createdAt
+                            ).toLocaleDateString()}
+                        </div>
+                        <div class="blog-summary">${blog.summary}</div>
+                        <div class="blog-actions">
+                            <button onclick="viewBlog('${
+                              blog._id || blog.id
+                            }')">View</button>
+                            <button onclick="editBlog('${
+                              blog._id || blog.id
+                            }')">Edit</button>
+                            <button onclick="deleteBlogFromList('${
+                              blog._id || blog.id
+                            }')" class="btn-danger">Delete</button>
+                        </div>
+                    </div>
+                `;
+        });
+
+        blogListDiv.innerHTML = html;
+      }
+
+      function viewBlog(blogId) {
+        document.getElementById("blogId").value = blogId;
+        getBlogById();
+      }
+
+      function editBlog(blogId) {
+        document.getElementById("updateBlogId").value = blogId;
+        loadBlogForEdit();
+      }
+
+      function deleteBlogFromList(blogId) {
+        if (confirm("Are you sure you want to delete this blog?")) {
+          document.getElementById("blogId").value = blogId;
+          deleteBlog();
+        }
+      }
+
+      // Authentication Functions
+      async function login() {
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+
+        try {
+          const response = await fetch(`${API_BASE}/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ email, password }),
+          });
+
+          const data = await response.json();
+          showResponse(data, !response.ok);
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      async function getProfile() {
+        try {
+          const response = await fetch(`${API_BASE}/auth/profile`, {
+            credentials: "include",
+          });
+
+          const data = await response.json();
+          showResponse(data, !response.ok);
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      async function logout() {
+        try {
+          const response = await fetch(`${API_BASE}/auth/logout`, {
+            method: "POST",
+            credentials: "include",
+          });
+
+          const data = await response.json();
+          showResponse(data, !response.ok);
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      // Blog CRUD Functions
+      async function createBlog() {
+        const title = document.getElementById("createTitle").value;
+        const summary = document.getElementById("createSummary").value;
+        const content = document.getElementById("createContent").value;
+        const tags = document
+          .getElementById("createTags")
+          .value.split(",")
+          .map((tag) => tag.trim())
+          .filter((tag) => tag);
+        const category = document.getElementById("createCategory").value;
+        const status = document.getElementById("createStatus").value;
+        const isPublic =
+          document.getElementById("createIsPublic").value === "true";
+        const featuredImage = document.getElementById(
+          "createFeaturedImage"
+        ).value;
+
+        try {
+          const response = await fetch(`${API_BASE}/blogs`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              title,
+              summary,
+              content,
+              tags,
+              category,
+              status,
+              isPublic,
+              featuredImage: featuredImage || undefined,
+            }),
+          });
+
+          const data = await response.json();
+          showResponse(data, !response.ok);
+
+          if (response.ok) {
+            // Clear form
+            document.getElementById("createTitle").value = "";
+            document.getElementById("createSummary").value = "";
+            document.getElementById("createContent").value = "";
+            document.getElementById("createTags").value = "";
+            document.getElementById("createFeaturedImage").value = "";
+          }
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      async function getAllBlogs() {
+        try {
+          const params = new URLSearchParams();
+          const search = document.getElementById("searchQuery").value;
+          const category = document.getElementById("categoryFilter").value;
+          const status = document.getElementById("statusFilter").value;
+          const page = document.getElementById("pageNumber").value;
+          const limit = document.getElementById("pageLimit").value;
+          const sortBy = document.getElementById("sortBy").value;
+
+          if (search) params.append("search", search);
+          if (category) params.append("category", category);
+          if (status) params.append("status", status);
+          if (page) params.append("page", page);
+          if (limit) params.append("limit", limit);
+          if (sortBy) params.append("sortBy", sortBy);
+
+          const response = await fetch(`${API_BASE}/blogs?${params}`);
+          const data = await response.json();
+
+          showResponse(data, !response.ok);
+
+          if (response.ok && data.data.blogs) {
+            showBlogList(data.data.blogs, data.data.pagination);
+          }
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      async function getMyBlogs() {
+        try {
+          const page = document.getElementById("pageNumber").value;
+          const limit = document.getElementById("pageLimit").value;
+          const params = new URLSearchParams();
+          if (page) params.append("page", page);
+          if (limit) params.append("limit", limit);
+
+          const response = await fetch(`${API_BASE}/blogs/my-blogs?${params}`, {
+            credentials: "include",
+          });
+          const data = await response.json();
+
+          showResponse(data, !response.ok);
+
+          if (response.ok && data.data.blogs) {
+            showBlogList(data.data.blogs, data.data.pagination);
+          }
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      async function getBlogById() {
+        const blogId = document.getElementById("blogId").value;
+        if (!blogId) {
+          showResponse({ error: "Please enter a blog ID" }, true);
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE}/blogs/${blogId}`, {
+            credentials: "include",
+          });
+          const data = await response.json();
+          showResponse(data, !response.ok);
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      async function getBlogBySlug() {
+        const blogSlug = document.getElementById("blogSlug").value;
+        if (!blogSlug) {
+          showResponse({ error: "Please enter a blog slug" }, true);
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE}/blogs/slug/${blogSlug}`, {
+            credentials: "include",
+          });
+          const data = await response.json();
+          showResponse(data, !response.ok);
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      async function updateBlog() {
+        const blogId = document.getElementById("updateBlogId").value;
+        if (!blogId) {
+          showResponse({ error: "Please enter a blog ID to update" }, true);
+          return;
+        }
+
+        const title = document.getElementById("updateTitle").value;
+        const summary = document.getElementById("updateSummary").value;
+        const content = document.getElementById("updateContent").value;
+
+        const updateData = {};
+        if (title) updateData.title = title;
+        if (summary) updateData.summary = summary;
+        if (content) updateData.content = content;
+
+        try {
+          const response = await fetch(`${API_BASE}/blogs/${blogId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(updateData),
+          });
+
+          const data = await response.json();
+          showResponse(data, !response.ok);
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      async function deleteBlog() {
+        const blogId = document.getElementById("blogId").value;
+        if (!blogId) {
+          showResponse({ error: "Please enter a blog ID to delete" }, true);
+          return;
+        }
+
+        if (!confirm("Are you sure you want to delete this blog?")) {
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE}/blogs/${blogId}`, {
+            method: "DELETE",
+            credentials: "include",
+          });
+
+          const data = await response.json();
+          showResponse(data, !response.ok);
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      async function likeBlog() {
+        const blogId = document.getElementById("blogId").value;
+        if (!blogId) {
+          showResponse({ error: "Please enter a blog ID to like" }, true);
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE}/blogs/${blogId}/like`, {
+            method: "POST",
+            credentials: "include",
+          });
+
+          const data = await response.json();
+          showResponse(data, !response.ok);
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      async function loadBlogForEdit() {
+        const blogId = document.getElementById("updateBlogId").value;
+        if (!blogId) {
+          showResponse(
+            { error: "Please enter a blog ID to load for editing" },
+            true
+          );
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE}/blogs/${blogId}`, {
+            credentials: "include",
+          });
+          const data = await response.json();
+
+          if (response.ok && data.data.blog) {
+            const blog = data.data.blog;
+            document.getElementById("updateTitle").value = blog.title;
+            document.getElementById("updateSummary").value = blog.summary;
+            document.getElementById("updateContent").value = blog.content;
+            showResponse({ message: "Blog loaded for editing", blog: blog });
+          } else {
+            showResponse(data, true);
+          }
+        } catch (error) {
+          showResponse({ error: error.message }, true);
+        }
+      }
+
+      // Load blogs on page load
+      window.onload = function () {
+        getAllBlogs();
+      };
+    </script>
+  </body>
+</html>
