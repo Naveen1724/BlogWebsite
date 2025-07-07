@@ -26,7 +26,7 @@ const ProtectedRoute = ({ children }) => {
       <div className="loading-container">
         <div className="loading-spinner">
           <div className="spinner"></div>
-          <p>Loading...</p>
+          {/* <p>Loading...</p> */}
         </div>
       </div>
     );
@@ -44,7 +44,7 @@ const PublicRoute = ({ children }) => {
       <div className="loading-container">
         <div className="loading-spinner">
           <div className="spinner"></div>
-          <p>Loading...</p>
+          {/* <p>Loading...</p> */}
         </div>
       </div>
     );
@@ -68,6 +68,8 @@ const App = () => {
                   <AuthPage />
                 </PublicRoute>
               }
+
+              
             />
             {/* Main Layout Routes */}
             <Route element={<MainLayout />}>

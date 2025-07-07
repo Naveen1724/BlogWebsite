@@ -36,7 +36,6 @@ const EditBlog = () => {
     "sports",
   ];
 
-  // Fetch blog data when component mounts
   useEffect(() => {
     const fetchBlog = async () => {
       try {
@@ -70,7 +69,6 @@ const EditBlog = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    // Clear validation error when user starts typing
     if (validationErrors[name]) {
       setValidationErrors((prev) => ({
         ...prev,
@@ -156,7 +154,7 @@ const EditBlog = () => {
   }
 
   return (
-    <div className="edit-blog">
+    <div className="edit-blog-container">
       <div className="edit-blog-header">
         <h2 className="edit-blog-title">Edit Blog Post</h2>
         <p className="edit-blog-subtitle">Make changes to your blog post</p>
@@ -164,18 +162,20 @@ const EditBlog = () => {
 
       {error && (
         <div className="error-alert">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="15" y1="9" x2="9" y2="15" />
-            <line x1="9" y1="9" x2="15" y2="15" />
-          </svg>
+          <span className="icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="15" y1="9" x2="9" y2="15" />
+              <line x1="9" y1="9" x2="15" y2="15" />
+            </svg>
+          </span>
           <span>{error}</span>
         </div>
       )}
@@ -197,7 +197,10 @@ const EditBlog = () => {
               disabled={isLoading}
             />
             {validationErrors.title && (
-              <span className="error-message">{validationErrors.title}</span>
+              <span className="error-message">
+                <span className="icon">⚠</span>
+                {validationErrors.title}
+              </span>
             )}
           </div>
         </div>
@@ -221,7 +224,10 @@ const EditBlog = () => {
             />
             <div className="character-count">{formData.summary.length}/500</div>
             {validationErrors.summary && (
-              <span className="error-message">{validationErrors.summary}</span>
+              <span className="error-message">
+                <span className="icon">⚠</span>
+                {validationErrors.summary}
+              </span>
             )}
           </div>
         </div>
@@ -244,7 +250,10 @@ const EditBlog = () => {
               disabled={isLoading}
             />
             {validationErrors.content && (
-              <span className="error-message">{validationErrors.content}</span>
+              <span className="error-message">
+                <span className="icon">⚠</span>
+                {validationErrors.content}
+              </span>
             )}
           </div>
         </div>
@@ -329,6 +338,7 @@ const EditBlog = () => {
             />
             {validationErrors.featuredImage && (
               <span className="error-message">
+                <span className="icon">⚠</span>
                 {validationErrors.featuredImage}
               </span>
             )}
@@ -366,12 +376,13 @@ const EditBlog = () => {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
+                  style={{ marginRight: "0.3rem", verticalAlign: "middle" }}
                 >
                   <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
                   <polyline points="17,21 17,13 7,13 7,21" />
                   <polyline points="7,3 7,8 15,8" />
                 </svg>
-                Update Blog Post
+                <span>Update Blog Post</span>
               </>
             )}
           </button>

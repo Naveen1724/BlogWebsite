@@ -85,7 +85,6 @@ const BlogList = () => {
       <div className="blog-list-loading">
         <div className="loading-spinner">
           <div className="spinner"></div>
-          <p>Loading blogs...</p>
         </div>
       </div>
     );
@@ -121,18 +120,19 @@ const BlogList = () => {
       <div className="blog-filters">
         <form onSubmit={handleSearch} className="search-form">
           <div className="search-input-group">
-            <svg
-              className="search-icon"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.35-4.35" />
-            </svg>
+            <span className="search-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+            </span>
             <input
               type="text"
               placeholder="Search blogs..."
@@ -193,7 +193,7 @@ const BlogList = () => {
       ) : (
         <div className="blog-grid">
           {blogs.map((blog) => (
-            <article key={blog.id} className="blog-card">
+            <article key={blog.id} className="blog-card" onClick={() => handleViewBlog(blog.id)}>
               {blog.featuredImage && (
                 <div className="blog-card-image">
                   <img src={blog.featuredImage} alt={blog.title} />
@@ -208,7 +208,6 @@ const BlogList = () => {
                 </div>
                 <h3
                   className="blog-card-title"
-                  onClick={() => handleViewBlog(blog.id)}
                 >
                   {blog.title}
                 </h3>
@@ -238,6 +237,7 @@ const BlogList = () => {
                     <button
                       onClick={() => handleLike(blog.id)}
                       className={`like-button ${blog.isLiked ? "liked" : ""}`}
+                      type="button"
                     >
                       <svg
                         width="16"
@@ -246,10 +246,11 @@ const BlogList = () => {
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
+                        style={{ marginRight: "5px", verticalAlign: "middle" }}
                       >
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                       </svg>
-                      {blog.likeCount || 0}
+                      <span className="like-count">{blog.likeCount || 0}</span>
                     </button>
                     <span className="view-count">
                       <svg
@@ -259,11 +260,12 @@ const BlogList = () => {
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
+                        style={{ marginRight: "5px", verticalAlign: "middle" }}
                       >
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                         <circle cx="12" cy="12" r="3" />
                       </svg>
-                      {blog.views || 0}
+                      <span className="views">{blog.views || 0}</span>
                     </span>
                   </div>
                 </div>

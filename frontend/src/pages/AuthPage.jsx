@@ -23,7 +23,6 @@ const AuthPage = () => {
       [name]: value,
     }));
 
-    // Clear validation error when user starts typing
     if (validationErrors[name]) {
       setValidationErrors((prev) => ({
         ...prev,
@@ -99,9 +98,9 @@ const AuthPage = () => {
 
   const togglePasswordVisibility = (field) => {
     if (field === "password") {
-      setShowPassword(!showPassword);
+      setShowPassword((prev) => !prev);
     } else {
-      setShowConfirmPassword(!showConfirmPassword);
+      setShowConfirmPassword((prev) => !prev);
     }
   };
 
@@ -126,31 +125,23 @@ const AuthPage = () => {
                 Full Name
               </label>
               <div className="input-wrapper">
+                <span className="input-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </span>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className={`input-field ${
-                    validationErrors.name ? "error" : ""
-                  }`}
+                  className={`input-field ${validationErrors.name ? "error" : ""}`}
                   placeholder="Enter your full name"
                   disabled={isLoading}
+                  autoComplete="name"
                 />
-                <div className="input-icon">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                </div>
               </div>
               {validationErrors.name && (
                 <span className="error-message">{validationErrors.name}</span>
@@ -163,31 +154,23 @@ const AuthPage = () => {
               Email Address
             </label>
             <div className="input-wrapper">
+              <span className="input-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+              </span>
               <input
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`input-field ${
-                  validationErrors.email ? "error" : ""
-                }`}
+                className={`input-field ${validationErrors.email ? "error" : ""}`}
                 placeholder="Enter your email address"
                 disabled={isLoading}
+                autoComplete="email"
               />
-              <div className="input-icon">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-              </div>
             </div>
             {validationErrors.email && (
               <span className="error-message">{validationErrors.email}</span>
@@ -199,48 +182,39 @@ const AuthPage = () => {
               Password
             </label>
             <div className="input-wrapper">
+              <span className="input-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 17a5 5 0 0 0 5-5V9a5 5 0 0 0-10 0v3a5 5 0 0 0 5 5z" />
+                  <rect x="6" y="10" width="12" height="8" rx="2" />
+                </svg>
+              </span>
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className={`input-field ${
-                  validationErrors.password ? "error" : ""
-                }`}
+                className={`input-field ${validationErrors.password ? "error" : ""}`}
                 placeholder="Enter your password"
                 disabled={isLoading}
+                autoComplete={isLogin ? "current-password" : "new-password"}
               />
               <button
                 type="button"
                 className="password-toggle"
                 onClick={() => togglePasswordVisibility("password")}
                 disabled={isLoading}
+                tabIndex={-1}
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="eye-icon-off"
-                  >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="eye-icon-off">
                     <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94L17.94 17.94z" />
                     <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19l-6.84-6.84z" />
                     <line x1="1" y1="1" x2="23" y2="23" />
                   </svg>
                 ) : (
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="eye-icon"
-                  >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="eye-icon">
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                     <circle cx="12" cy="12" r="3" />
                   </svg>
@@ -258,48 +232,39 @@ const AuthPage = () => {
                 Confirm Password
               </label>
               <div className="input-wrapper">
+                <span className="input-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 17a5 5 0 0 0 5-5V9a5 5 0 0 0-10 0v3a5 5 0 0 0 5 5z" />
+                    <rect x="6" y="10" width="12" height="8" rx="2" />
+                  </svg>
+                </span>
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   id="confirmPassword"
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  className={`input-field ${
-                    validationErrors.confirmPassword ? "error" : ""
-                  }`}
+                  className={`input-field ${validationErrors.confirmPassword ? "error" : ""}`}
                   placeholder="Confirm your password"
                   disabled={isLoading}
+                  autoComplete="new-password"
                 />
                 <button
                   type="button"
                   className="password-toggle"
                   onClick={() => togglePasswordVisibility("confirmPassword")}
                   disabled={isLoading}
+                  tabIndex={-1}
+                  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
                 >
                   {showConfirmPassword ? (
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="eye-icon-off"
-                    >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="eye-icon-off">
                       <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94L17.94 17.94z" />
                       <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19l-6.84-6.84z" />
                       <line x1="1" y1="1" x2="23" y2="23" />
                     </svg>
                   ) : (
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="eye-icon"
-                    >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="eye-icon">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                       <circle cx="12" cy="12" r="3" />
                     </svg>
@@ -307,23 +272,14 @@ const AuthPage = () => {
                 </button>
               </div>
               {validationErrors.confirmPassword && (
-                <span className="error-message">
-                  {validationErrors.confirmPassword}
-                </span>
+                <span className="error-message">{validationErrors.confirmPassword}</span>
               )}
             </div>
           )}
 
           {error && (
             <div className="error-alert">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="12" r="10" />
                 <line x1="15" y1="9" x2="9" y2="15" />
                 <line x1="9" y1="9" x2="15" y2="15" />

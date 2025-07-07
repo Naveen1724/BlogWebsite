@@ -155,7 +155,7 @@ const MyBlogs = () => {
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                       <circle cx="12" cy="12" r="3" />
                     </svg>
-                    {blog.views || 0} views
+                    <span>{blog.views || 0} views</span>
                   </span>
                   <span className="stat">
                     <svg
@@ -168,7 +168,7 @@ const MyBlogs = () => {
                     >
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                     </svg>
-                    {blog.likeCount || 0} likes
+                    <span>{blog.likeCount || 0} likes</span>
                   </span>
                   <span className="stat">
                     <svg
@@ -182,7 +182,7 @@ const MyBlogs = () => {
                       <circle cx="12" cy="12" r="10" />
                       <polyline points="12,6 12,12 16,14" />
                     </svg>
-                    {blog.readTime} min read
+                    <span>{blog.readTime} min read</span>
                   </span>
                 </div>
                 <div className="my-blog-card-footer">
