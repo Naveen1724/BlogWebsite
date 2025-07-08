@@ -5,7 +5,7 @@ import "../styles/AuthPage.css";
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -34,8 +34,8 @@ const AuthPage = () => {
   const validateForm = () => {
     const errors = {};
 
-    if (!isLogin && !formData.name.trim()) {
-      errors.name = "Name is required";
+    if (!isLogin && !formData.username.trim()) {
+      errors.username = "Username is required";
     }
 
     if (!formData.email.trim()) {
@@ -72,7 +72,7 @@ const AuthPage = () => {
     };
 
     if (!isLogin) {
-      credentials.name = formData.name;
+      credentials.username = formData.username;
     }
 
     const result = isLogin
@@ -87,7 +87,7 @@ const AuthPage = () => {
   const toggleMode = () => {
     setIsLogin(!isLogin);
     setFormData({
-      name: "",
+      username: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -121,8 +121,8 @@ const AuthPage = () => {
         <form onSubmit={handleSubmit} className="auth-form">
           {!isLogin && (
             <div className="input-group">
-              <label htmlFor="name" className="input-label">
-                Full Name
+              <label htmlFor="username" className="input-label">
+                Username
               </label>
               <div className="input-wrapper">
                 <span className="input-icon">
@@ -133,18 +133,18 @@ const AuthPage = () => {
                 </span>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
+                  id="username"
+                  name="username"
+                  value={formData.username}
                   onChange={handleInputChange}
-                  className={`input-field ${validationErrors.name ? "error" : ""}`}
-                  placeholder="Enter your full name"
+                  className={`input-field ${validationErrors.username ? "error" : ""}`}
+                  placeholder="Enter your username"
                   disabled={isLoading}
-                  autoComplete="name"
+                  autoComplete="username"
                 />
               </div>
-              {validationErrors.name && (
-                <span className="error-message">{validationErrors.name}</span>
+              {validationErrors.username && (
+                <span className="error-message">{validationErrors.username}</span>
               )}
             </div>
           )}
