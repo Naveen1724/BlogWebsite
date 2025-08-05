@@ -1,0 +1,302 @@
+/* MainLayout.css */
+.main-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--gray-50);
+}
+
+/* Header Styles */
+.main-header {
+  background: white;
+  border-bottom: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-500), var(--secondary-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.user-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.welcome-text {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+}
+
+.logout-button,
+.login-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--primary-500), var(--secondary-500));
+  color: white;
+  border: none;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover,
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Navigation Styles - Instagram-like, now inline with header */
+.main-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-container {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--gray-600);
+  padding: 0.5rem;
+  position: relative;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.nav-link svg {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.nav-link span {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: var(--primary-600);
+  background-color: var(--gray-100);
+}
+
+.nav-link:hover svg {
+  transform: scale(1.1);
+}
+
+.nav-link.active {
+  color: var(--primary-600);
+  background-color: var(--gray-100);
+}
+
+/* Main Content Styles */
+.main-content {
+  flex: 1;
+  padding: 2rem 0;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Footer Styles */
+.main-footer {
+  background: white;
+  border-top: 1px solid var(--gray-200);
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.main-footer p {
+  color: var(--gray-600);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .header-container {
+    padding: 0 1rem;
+  }
+
+  .header-left {
+    gap: 1rem;
+  }
+
+  .nav-container {
+    gap: 0.75rem;
+  }
+
+  .main-content {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .header-left {
+    order: 1;
+    width: auto;
+  }
+
+  .main-nav {
+    order: 3;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .nav-container {
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .user-controls {
+    order: 2;
+    width: auto;
+    margin-left: auto;
+  }
+
+  .main-content {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-text {
+    display: none;
+  }
+
+  .logo h1 {
+    font-size: 1.25rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem;
+  }
+
+  .nav-link span {
+    font-size: 0.75rem;
+  }
+
+  .nav-link svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-container {
+    gap: 0;
+    padding: 0;
+  }
+
+  .header-container {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .logout-button,
+  .login-button {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .main-footer {
+    padding: 1rem 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .header-container {
+    padding: 0.5rem;
+  }
+
+  .header-left {
+    gap: 0.5rem;
+  }
+
+  .logo h1 {
+    font-size: 1.1rem;
+  }
+
+  .nav-link span {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 0.5rem;
+    justify-content: center;
+    min-width: 40px;
+  }
+
+  .nav-link svg {
+    margin: 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-container {
+    justify-content: space-around;
+  }
+
+  .logout-button svg,
+  .login-button svg {
+    margin-right: 0;
+  }
+
+  .logout-button span,
+  .login-button span {
+    display: none;
+  }
+
+  .logout-button,
+  .login-button {
+    padding: 0.5rem;
+    aspect-ratio: 1/1;
+  }
+}
